@@ -25,5 +25,18 @@
       "Caju",
       "Mamao"
     ]
+  },
+  {
+    "clue": "Esporte",
+    "word": [
+      "Tenis",
+      "Volei",
+      "Basquete",
+      "Futebol",
+      "Nataçao",
+      "Golfe",
+      "Handebol",
+      "Corrida"
+    ]
   }
 ]
