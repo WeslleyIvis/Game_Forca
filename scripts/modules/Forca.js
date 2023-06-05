@@ -1,13 +1,18 @@
 export default class Forca {
-  constructor(clue) {
+  constructor(clue = null, amountClue = 3) {
     this.data = null;
-    this.clue = clue;
     this.word = null;
+    this.letter = null;
     this.body = 6;
-    this.CountClue = 0;
+    this.amountClue = amountClue;
+    this.countClue = 0;
+    this.countLetters = [];
+    this.clue = clue;
+    this.mainComponent = document.createElement('main');
+    this.gameComponent = null;
   }
 
-  async generateWord() {
+  async getDataWorlds() {
     await fetch('./scripts/modules/data.json')
       .then((r) => r.json())
       .then((r) => {
@@ -17,46 +22,71 @@ export default class Forca {
       .catch((error) => console.error(error));
   }
 
-  handleEvents() {
-    console.log(this.data);
-    if (this.word == null) {
-      this.createWord();
+  createWord() {
+    if (this.clue == null) {
+      this.clue = this.data[Math.floor(Math.random() * this.data.length)].clue;
     }
 
-    this.createComponent();
-  }
-
-  createWord() {
     this.data.forEach((word) => {
       if (word.clue === this.clue) {
         this.word = word.word[Math.floor(Math.random() * word.word.length)];
+        this.countClue = Math.floor(this.word.length / this.amountClue);
       }
     });
     console.log(this.word);
   }
 
+  handleEvents() {
+    console.log(this.data);
+    if (this.word == null) {
+      this.createWord();
+    }
+    this.createComponent();
+  }
+
   createComponent() {
-    let main = document.createElement('main');
-    main.classList.add('main');
+    let textClue = document.createElement('h2');
+    textClue.innerText = this.clue;
+
+    this.mainComponent.appendChild(textClue);
+    this.mainComponent.appendChild(this.createSectionGame());
+    document.body.appendChild(this.mainComponent);
+  }
+
+  createSectionGame() {
+    let sectionGame = document.createElement('section');
+    sectionGame.classList.add('main');
 
     for (let i = 0; i < this.word.length; i++) {
       let position = document.createElement('p');
-      position.setAttribute('value', this.word[i].toLowerCase());
-
-      main.appendChild(position);
+      position.title = this.word[i].toLowerCase();
+      sectionGame.appendChild(position);
     }
 
     let inputText = document.createElement('input');
-    inputText.placeholder = 'Character';
+    inputText.placeholder = 'Letra';
     inputText.type = 'text';
     inputText.maxLength = 1;
+    this.handleEvent(inputText);
+    sectionGame.appendChild(inputText);
+    this.gameComponent = sectionGame;
 
-    main.appendChild(inputText);
+    return sectionGame;
+  }
 
-    document.body.appendChild(main);
+  handleEvent(input) {
+    input.addEventListener('keydown', (event) => {
+      console.dir(event.target);
+      this.letter = event.target.value;
+      this.gameComponent.childNodes.forEach((element) => {
+        if (element.title == event.target.value) {
+          element.innerText = event.target.value;
+        }
+      });
+    });
   }
 
   init() {
-    this.generateWord();
+    this.getDataWorlds();
   }
 }
