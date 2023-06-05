@@ -1,0 +1,29 @@
+[
+  {
+    "clue": "Animal",
+    "word": [
+      "Cavalo",
+      "Boi",
+      "Peixe",
+      "Macaco",
+      "Leão",
+      "Onça",
+      "Jumento",
+      "Papagaio"
+    ]
+  },
+  {
+    "clue": "Fruta",
+    "word": [
+      "Banana",
+      "Maça",
+      "Melancia",
+      "Jaca",
+      "Carambola",
+      "Goiaba",
+      "Jambo",
+      "Caju",
+      "Mamao"
+    ]
+  }
+]
