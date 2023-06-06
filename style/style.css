@@ -5,39 +5,60 @@
     box-sizing: border-box;
 }
 
-.main {
-    margin: 25% auto 0;
+h2 {
+    font-size: 2.5em;
+    color: rgb(180, 180, 231);
+}
+
+main {
+    max-width: 80vw;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.box-word {
+    margin-top: 20%;
     padding: 20px;
-    max-width: 50%;
+    max-width: 100%;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     position: relative;
 }
 
-.main p {
-    border-bottom: 2px solid black;
-    max-width: 150px;
-    margin: 0 10px;
-    flex-grow: 1;
+.box-word  p {
+    width: 100%;
+    font-size: 4em;
 }
 
-.main input {
-    position: absolute;
-    top: 1em;
+.space-letter {
+    border-bottom: 2px solid black;
+    margin: 0 10px;
+    max-width: 110px;
+    width: 100%;
+    height: 5em;
+}
+
+.letter {
+    margin: 1em;
     font-size: 50px;
     font-weight: 500;
     padding-left: .8em;
     max-width: 200px;
-    cursor: pointer;
+   
     border-radius: 10px;
-    color: white;
+    color: rgb(56, 56, 56);
     border: 1px solid rgb(161, 161, 161);
-    background-color: rgb(66, 66, 66);
-    outline-color: rgba(2, 85, 179, 0.753);
+    background-color: rgb(233, 233, 233);
+
 }
 
-.main input::placeholder {
-    color: rgba(255, 255, 255, 0.418);
+.letter::placeholder {
+    color: rgba(167, 167, 167, 0.418);
     font-weight: bold;
 }
 
+.used-letters {
+    margin: 2em;
+    font-size: 2em;
+}
