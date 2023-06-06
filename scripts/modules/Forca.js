@@ -1,5 +1,8 @@
-export default class Forca {
+import Components from './Components.js';
+
+export default class Forca extends Components {
   constructor(clue = null, amountClue = 3) {
+    super();
     this.data = null;
     this.word = null;
     this.letter = null;
@@ -8,9 +11,9 @@ export default class Forca {
     this.countClue = 0;
     this.countLetters = [];
     this.clue = clue;
-    this.mainComponent = document.createElement('main');
+    this.mainComponent = this.createTagComponent('main', 'main');
     this.gameComponent = null;
-    this.usedLetter = document.createElement('p');
+    this.usedLetter = this.createTagComponent('p', 'used-letters');
   }
 
   async getDataWorlds() {
@@ -46,54 +49,39 @@ export default class Forca {
   }
 
   createComponent() {
-    const textClue = document.createElement('h2');
-    textClue.innerText = this.clue;
+    this.mainComponent.appendChild(
+      this.createTagComponent('h2', 'clue', this.clue),
+    );
+    this.mainComponent.appendChild(
+      (this.gameComponent = this.createArrayComponent(
+        this.word,
+        'section',
+        'box-word',
+      )),
+    );
 
-    this.mainComponent.appendChild(textClue);
-    this.mainComponent.appendChild(this.createSectionGame());
-    this.mainComponent.appendChild(this.createButtons());
+    const inputText = this.createInput('text', 'inp-letter');
+    this.buttonEvent(inputText);
+
+    this.mainComponent.appendChild(inputText);
     this.mainComponent.appendChild(this.usedLetter);
-    this.usedLetter.classList.add('used-letters');
     document.body.appendChild(this.mainComponent);
   }
 
-  createSectionGame() {
-    const sectionGame = document.createElement('section');
-    sectionGame.classList.add('box-word');
-
-    for (let i = 0; i < this.word.length; i++) {
-      let position = document.createElement('p');
-      let pContent = document.createElement('div');
-      pContent.classList.add('space-letter');
-      pContent.appendChild(position);
-      position.title = this.word[i].toUpperCase();
-      sectionGame.appendChild(pContent);
-    }
-
-    return (this.gameComponent = sectionGame);
-  }
-
-  createButtons() {
-    const inputText = document.createElement('input');
-    inputText.classList.add('letter');
-    inputText.placeholder = 'Letra';
-    inputText.type = 'text';
-    inputText.maxLength = 1;
-    this.handleEvent(inputText);
-    return inputText;
-  }
-
-  handleEvent(input) {
+  buttonEvent(input) {
     input.addEventListener('keyup', (event) => {
       this.letter = event.target.value.toUpperCase();
-
       this.gameComponent.childNodes.forEach((element) => {
-        if (element.firstChild.title == this.letter) {
-          element.firstChild.innerText = this.letter;
+        if (element.dataset.value == this.letter) {
+          element.innerText = this.letter;
         }
       });
 
-      if (!this.countLetters.includes(this.letter) && this.letter !== ' ')
+      if (
+        !this.countLetters.includes(this.letter) &&
+        this.letter !== ' ' &&
+        !/[\d\W]/.test(this.letter)
+      )
         this.countLetters.push(this.letter);
 
       this.writeUsedLetters();
