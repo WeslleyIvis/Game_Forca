@@ -18,34 +18,27 @@ main {
 
 .box-word {
     margin-top: 20%;
-    padding: 20px;
-    max-width: 100%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 2em;
     position: relative;
 }
 
-.box-word  p {
+.box-word p {
     width: 100%;
+    max-width: 100px;
+    height: 1.2em;
     font-size: 4em;
+    border-bottom: 1px solid black;
 }
 
-.space-letter {
-    border-bottom: 2px solid black;
-    margin: 0 10px;
-    max-width: 110px;
-    width: 100%;
-    height: 5em;
-}
-
-.letter {
+.inp-letter {
     margin: 1em;
     font-size: 50px;
     font-weight: 500;
     padding-left: .8em;
     max-width: 200px;
-   
     border-radius: 10px;
     color: rgb(56, 56, 56);
     border: 1px solid rgb(161, 161, 161);
@@ -53,7 +46,7 @@ main {
 
 }
 
-.letter::placeholder {
+.inp-letter::placeholder {
     color: rgba(167, 167, 167, 0.418);
     font-weight: bold;
 }
