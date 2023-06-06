@@ -10,6 +10,7 @@ export default class Forca {
     this.clue = clue;
     this.mainComponent = document.createElement('main');
     this.gameComponent = null;
+    this.usedLetter = document.createElement('p');
   }
 
   async getDataWorlds() {
@@ -45,44 +46,67 @@ export default class Forca {
   }
 
   createComponent() {
-    let textClue = document.createElement('h2');
+    const textClue = document.createElement('h2');
     textClue.innerText = this.clue;
 
     this.mainComponent.appendChild(textClue);
     this.mainComponent.appendChild(this.createSectionGame());
+    this.mainComponent.appendChild(this.createButtons());
+    this.mainComponent.appendChild(this.usedLetter);
+    this.usedLetter.classList.add('used-letters');
     document.body.appendChild(this.mainComponent);
   }
 
   createSectionGame() {
-    let sectionGame = document.createElement('section');
-    sectionGame.classList.add('main');
+    const sectionGame = document.createElement('section');
+    sectionGame.classList.add('box-word');
 
     for (let i = 0; i < this.word.length; i++) {
       let position = document.createElement('p');
-      position.title = this.word[i].toLowerCase();
-      sectionGame.appendChild(position);
+      let pContent = document.createElement('div');
+      pContent.classList.add('space-letter');
+      pContent.appendChild(position);
+      position.title = this.word[i].toUpperCase();
+      sectionGame.appendChild(pContent);
     }
 
-    let inputText = document.createElement('input');
+    return (this.gameComponent = sectionGame);
+  }
+
+  createButtons() {
+    const inputText = document.createElement('input');
+    inputText.classList.add('letter');
     inputText.placeholder = 'Letra';
     inputText.type = 'text';
     inputText.maxLength = 1;
     this.handleEvent(inputText);
-    sectionGame.appendChild(inputText);
-    this.gameComponent = sectionGame;
-
-    return sectionGame;
+    return inputText;
   }
 
   handleEvent(input) {
-    input.addEventListener('keydown', (event) => {
-      console.dir(event.target);
-      this.letter = event.target.value;
+    input.addEventListener('keyup', (event) => {
+      this.letter = event.target.value.toUpperCase();
+
       this.gameComponent.childNodes.forEach((element) => {
-        if (element.title == event.target.value) {
-          element.innerText = event.target.value;
+        if (element.firstChild.title == this.letter) {
+          element.firstChild.innerText = this.letter;
         }
       });
+
+      if (!this.countLetters.includes(this.letter) && this.letter !== ' ')
+        this.countLetters.push(this.letter);
+
+      this.writeUsedLetters();
+
+      input.value = null;
+    });
+  }
+
+  writeUsedLetters() {
+    this.usedLetter.innerText = '';
+
+    this.countLetters.forEach((value) => {
+      this.usedLetter.innerText += value + ' - ';
     });
   }
 
