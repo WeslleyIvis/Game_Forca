@@ -1,13 +1,14 @@
 import Components from './Components.js';
 
 export default class Forca extends Components {
-  constructor(word = null, clue = null, amountClue = 3) {
+  constructor(word = '', clue = '', amountClue = 3) {
     super();
     this.word = word;
-    this.letter = null;
+    this.usedLettersWord = '';
+    this.letter = '';
     this.body = 6;
     this.amountClue = amountClue;
-    this.countClue = 0;
+    this.maxClue = 0;
     this.countLetters = [];
     this.clue = clue;
     this.mainComponent = this.createTagComponent('main', 'main');
@@ -27,13 +28,13 @@ export default class Forca extends Components {
   }
 
   createWord(word, clue) {
-    if (word == null && clue == null) {
+    if (word == '' && clue == '') {
       this.clue = clue =
         this.data[Math.floor(Math.random() * this.data.length)].clue;
       this.randomWord(clue);
     }
 
-    if (word == null && clue !== null) {
+    if (word == '' && clue !== '') {
       this.randomWord(clue);
     }
   }
@@ -42,13 +43,13 @@ export default class Forca extends Components {
     this.data.forEach((word) => {
       if (word.clue.toUpperCase() === category.toUpperCase()) {
         this.word = word.word[Math.floor(Math.random() * word.word.length)];
-        this.countClue = Math.floor(this.word.length / this.amountClue);
+        this.maxClue = Math.floor(this.word.length / this.amountClue);
       }
     });
   }
 
   handleEvents() {
-    if (this.word == null) {
+    if (this.word == '') {
       this.createWord(this.word, this.clue);
     }
     this.createComponent();
@@ -59,7 +60,6 @@ export default class Forca extends Components {
       this.createTagComponent('h2', 'clue', this.clue),
     );
 
-    console.log(this.word);
     this.mainComponent.appendChild(
       (this.gameComponent = this.createArrayComponent(
         this.word,
@@ -68,32 +68,73 @@ export default class Forca extends Components {
       )),
     );
 
-    const inputText = this.createInput('text', 'inp-letter');
-    this.buttonEvent(inputText);
-    this.mainComponent.appendChild(inputText);
+    this.textEvent(
+      this.mainComponent.appendChild(this.createInputText('inp-letter')),
+    );
+
+    this.clueEvent(
+      this.mainComponent.appendChild(this.createButton('Dica', 'button-clue')),
+    );
+
     this.mainComponent.appendChild(this.usedLetter);
     document.body.appendChild(this.mainComponent);
   }
 
-  buttonEvent(input) {
-    input.addEventListener('keyup', (event) => {
+  textEvent(node) {
+    node.addEventListener('keyup', (event) => {
       this.letter = event.target.value.toUpperCase();
-      this.gameComponent.childNodes.forEach((element) => {
-        if (element.dataset.value == this.letter) {
-          element.innerText = this.letter;
+
+      this.validLetter(this.letter);
+
+      node.value = null;
+    });
+  }
+
+  validLetter(letter) {
+    letter = letter.toUpperCase();
+    this.usedLettersWord = '';
+
+    this.gameComponent.childNodes.forEach((element) => {
+      if (element.dataset.value == letter) element.innerText = letter;
+
+      if (element.innerText != '')
+        this.usedLettersWord += element.dataset.value;
+    });
+
+    console.log(this.usedLettersWord);
+
+    if (
+      !this.countLetters.includes(letter) &&
+      letter !== ' ' &&
+      !/[\d\W]/.test(letter)
+    )
+      this.countLetters.push(letter);
+    this.writeUsedLetters();
+  }
+
+  clueEvent(node) {
+    node.addEventListener('click', () => {
+      const validLetter = () => {
+        let randomLetter = 0;
+
+        do {
+          let count = 0;
+          randomLetter =
+            this.word[
+              Math.floor(Math.random() * (this.word.length - count)) + count
+            ];
+          count++;
+        } while (this.usedLettersWord.includes(randomLetter));
+
+        if (this.maxClue >= 1) {
+          this.validLetter(randomLetter);
         }
-      });
 
-      if (
-        !this.countLetters.includes(this.letter) &&
-        this.letter !== ' ' &&
-        !/[\d\W]/.test(this.letter)
-      )
-        this.countLetters.push(this.letter);
+        console.log(this.maxClue);
+        this.maxClue--;
+      };
 
-      this.writeUsedLetters();
-
-      input.value = null;
+      if (this.maxClue >= 1) validLetter();
     });
   }
 
