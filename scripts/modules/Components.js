@@ -7,14 +7,22 @@ export default class Components {
     return content;
   }
 
-  createInput(type = 'text', className, placeholder = 'digit', maxLength = 1) {
+  createInputText(className, placeholder = 'digit', maxLength = 1) {
     const input = document.createElement('input');
-    input.type = type;
     input.classList.add(className);
     input.placeholder = placeholder;
     input.maxLength = maxLength;
 
     return input;
+  }
+
+  createButton(value, className = null) {
+    const button = document.createElement('input');
+    button.type = 'button';
+    button.value = value;
+    button.classList.add(className);
+
+    return button;
   }
 
   createArrayComponent(word = 'word', tag = 'section', className) {
