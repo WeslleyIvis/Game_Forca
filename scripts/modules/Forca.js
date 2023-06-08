@@ -1,10 +1,9 @@
 import Components from './Components.js';
 
 export default class Forca extends Components {
-  constructor(clue = null, amountClue = 3) {
+  constructor(word = null, clue = null, amountClue = 3) {
     super();
-    this.data = null;
-    this.word = null;
+    this.word = word;
     this.letter = null;
     this.body = 6;
     this.amountClue = amountClue;
@@ -14,10 +13,11 @@ export default class Forca extends Components {
     this.mainComponent = this.createTagComponent('main', 'main');
     this.gameComponent = null;
     this.usedLetter = this.createTagComponent('p', 'used-letters');
+    this.data = './scripts/modules/data.json';
   }
 
-  async getDataWorlds() {
-    await fetch('./scripts/modules/data.json')
+  async getDataWorlds(data) {
+    await fetch(data)
       .then((r) => r.json())
       .then((r) => {
         this.data = r;
@@ -26,24 +26,30 @@ export default class Forca extends Components {
       .catch((error) => console.error(error));
   }
 
-  createWord() {
-    if (this.clue == null) {
-      this.clue = this.data[Math.floor(Math.random() * this.data.length)].clue;
+  createWord(word, clue) {
+    if (word == null && clue == null) {
+      this.clue = clue =
+        this.data[Math.floor(Math.random() * this.data.length)].clue;
+      this.randomWord(clue);
     }
 
+    if (word == null && clue !== null) {
+      this.randomWord(clue);
+    }
+  }
+
+  randomWord(category) {
     this.data.forEach((word) => {
-      if (word.clue === this.clue) {
+      if (word.clue.toUpperCase() === category.toUpperCase()) {
         this.word = word.word[Math.floor(Math.random() * word.word.length)];
         this.countClue = Math.floor(this.word.length / this.amountClue);
       }
     });
-    console.log(this.word);
   }
 
   handleEvents() {
-    console.log(this.data);
     if (this.word == null) {
-      this.createWord();
+      this.createWord(this.word, this.clue);
     }
     this.createComponent();
   }
@@ -52,6 +58,8 @@ export default class Forca extends Components {
     this.mainComponent.appendChild(
       this.createTagComponent('h2', 'clue', this.clue),
     );
+
+    console.log(this.word);
     this.mainComponent.appendChild(
       (this.gameComponent = this.createArrayComponent(
         this.word,
@@ -62,7 +70,6 @@ export default class Forca extends Components {
 
     const inputText = this.createInput('text', 'inp-letter');
     this.buttonEvent(inputText);
-
     this.mainComponent.appendChild(inputText);
     this.mainComponent.appendChild(this.usedLetter);
     document.body.appendChild(this.mainComponent);
@@ -99,6 +106,6 @@ export default class Forca extends Components {
   }
 
   init() {
-    this.getDataWorlds();
+    this.getDataWorlds(this.data);
   }
 }
