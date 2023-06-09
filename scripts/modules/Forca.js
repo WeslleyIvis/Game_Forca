@@ -13,6 +13,20 @@ export default class Forca extends Components {
     this.clue = clue;
     this.mainComponent = this.createTagComponent('main', 'main');
     this.gameComponent = null;
+    this.imagens = [
+      '../../style/imagens/sr1.jpg',
+      '../../style/imagens/sr2.jpg',
+      '../../style/imagens/sr2.jpg',
+      '../../style/imagens/sr3.png',
+      '../../style/imagens/sr4.png',
+      '../../style/imagens/sr5.jpg',
+      '../../style/imagens/sr6.jpg',
+    ];
+    this.contentImage = this.createFigureComponent(
+      this.imagens[0],
+      'srIncrivel',
+      'content-img',
+    );
     this.usedLetter = this.createTagComponent('p', 'used-letters');
     this.data = './scripts/modules/data.json';
   }
@@ -60,17 +74,25 @@ export default class Forca extends Components {
       this.createTagComponent('h2', 'clue', this.clue),
     );
 
+    this.mainComponent.appendChild(this.contentImage);
+
     this.mainComponent.appendChild(
       (this.gameComponent = this.createArrayComponent(
         this.word,
         'section',
         'box-word',
+        'p',
       )),
     );
 
-    this.textEvent(
+    this.selectLetterEvent(
       this.mainComponent.appendChild(
-        this.createInputText('inp-letter', 'Leter'),
+        this.createArrayComponent(
+          'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
+          'section',
+          'buttons',
+          'button',
+        ),
       ),
     );
 
@@ -79,20 +101,39 @@ export default class Forca extends Components {
     );
 
     this.mainComponent.appendChild(
-      this.createArrayComponent('123456', 'div', 'body-forca'),
+      this.createArrayComponent('123456', 'div', 'body-forca', 'span'),
     );
 
     this.mainComponent.appendChild(this.usedLetter);
     document.body.appendChild(this.mainComponent);
   }
 
-  textEvent(node) {
-    node.addEventListener('keyup', (event) => {
-      this.letter = event.target.value.toUpperCase();
+  selectLetterEvent(node) {
+    let timer = true;
 
+    const interval = (seconds) => {
+      let out = setTimeout(() => {
+        timer = true;
+      }, seconds);
+    };
+
+    const setLetter = (letter) => {
+      this.letter = letter;
       this.validLetter(this.letter);
+    };
 
-      node.value = null;
+    document.addEventListener('keydown', ({ key }) => {
+      if (timer) {
+        timer = false;
+        interval(600);
+        setLetter(key);
+      }
+    });
+
+    node.childNodes.forEach((element) => {
+      element.addEventListener(['click'], (event) => {
+        setLetter(event.target.innerText.toUpperCase());
+      });
     });
   }
 
@@ -110,12 +151,11 @@ export default class Forca extends Components {
     if (
       !this.countLetters.includes(letter) &&
       letter !== ' ' &&
-      !/[\d\W]/.test(letter)
+      !/[1-9a-z]/.test(letter)
     ) {
       this.countLetters.push(letter);
       this.bodyLife(letter);
     }
-    this.writeUsedLetters();
   }
 
   clueEvent(node) {
@@ -140,6 +180,7 @@ export default class Forca extends Components {
       };
 
       if (this.maxClue >= 1) validLetter();
+      else node.disabled = true;
     });
   }
 
@@ -152,11 +193,12 @@ export default class Forca extends Components {
       });
     };
 
-    if (!this.usedLettersWord.includes(letter)) {
+    if (!this.usedLettersWord.includes(letter) && this.body < 6) {
       this.body++;
+      this.contentImage.firstChild.src = this.imagens[this.body];
     }
 
-    if (this.body > 6) {
+    if (this.body == 6) {
       window.alert('Perdeu! a palavra certa é ' + this.word);
       disableInputs();
     }
