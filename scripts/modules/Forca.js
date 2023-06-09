@@ -144,14 +144,27 @@ export default class Forca extends Components {
   }
 
   bodyLife(letter) {
+    const disableInputs = () => {
+      this.mainComponent.childNodes.forEach((element) => {
+        if (element.nodeName == 'INPUT') {
+          element.disabled = true;
+        }
+      });
+    };
+
     if (!this.usedLettersWord.includes(letter)) {
-      console.log(letter);
       this.body++;
     }
 
-    console.log(this.mainComponent.childNodes);
+    if (this.body > 6) {
+      window.alert('Perdeu! a palavra certa é ' + this.word);
+      disableInputs();
+    }
 
-    if (this.body > 6) window.alert('Perdeu! a palavra certa é ' + this.word);
+    if (this.usedLettersWord.length == this.word.length) {
+      window.alert('Venceu');
+      disableInputs();
+    }
   }
 
   writeUsedLetters() {
