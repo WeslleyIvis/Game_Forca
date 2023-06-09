@@ -6,7 +6,7 @@ export default class Forca extends Components {
     this.word = word;
     this.usedLettersWord = '';
     this.letter = '';
-    this.body = 6;
+    this.body = 0;
     this.amountClue = amountClue;
     this.maxClue = 0;
     this.countLetters = [];
@@ -52,10 +52,10 @@ export default class Forca extends Components {
     if (this.word == '') {
       this.createWord(this.word, this.clue);
     }
-    this.createComponent();
+    this.createInterface();
   }
 
-  createComponent() {
+  createInterface() {
     this.mainComponent.appendChild(
       this.createTagComponent('h2', 'clue', this.clue),
     );
@@ -69,11 +69,17 @@ export default class Forca extends Components {
     );
 
     this.textEvent(
-      this.mainComponent.appendChild(this.createInputText('inp-letter')),
+      this.mainComponent.appendChild(
+        this.createInputText('inp-letter', 'Leter'),
+      ),
     );
 
     this.clueEvent(
       this.mainComponent.appendChild(this.createButton('Dica', 'button-clue')),
+    );
+
+    this.mainComponent.appendChild(
+      this.createArrayComponent('123456', 'div', 'body-forca'),
     );
 
     this.mainComponent.appendChild(this.usedLetter);
@@ -101,14 +107,14 @@ export default class Forca extends Components {
         this.usedLettersWord += element.dataset.value;
     });
 
-    console.log(this.usedLettersWord);
-
     if (
       !this.countLetters.includes(letter) &&
       letter !== ' ' &&
       !/[\d\W]/.test(letter)
-    )
+    ) {
       this.countLetters.push(letter);
+      this.bodyLife(letter);
+    }
     this.writeUsedLetters();
   }
 
@@ -130,12 +136,22 @@ export default class Forca extends Components {
           this.validLetter(randomLetter);
         }
 
-        console.log(this.maxClue);
         this.maxClue--;
       };
 
       if (this.maxClue >= 1) validLetter();
     });
+  }
+
+  bodyLife(letter) {
+    if (!this.usedLettersWord.includes(letter)) {
+      console.log(letter);
+      this.body++;
+    }
+
+    console.log(this.mainComponent.childNodes);
+
+    if (this.body > 6) window.alert('Perdeu! a palavra certa é ' + this.word);
   }
 
   writeUsedLetters() {
