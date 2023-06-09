@@ -1,7 +1,7 @@
 export default class Components {
-  createTagComponent(tag, className, value = null) {
+  createTagComponent(tag, className = null, value = null) {
     const content = document.createElement(tag);
-    content.classList.add(className);
+    if (className) content.classList.add(className);
     content.innerText = value;
 
     return content;
@@ -29,7 +29,7 @@ export default class Components {
     const content = this.createTagComponent(tag, className);
 
     for (let i = 0; i < word.length; i++) {
-      let letter = this.createTagComponent('p', 'a');
+      let letter = this.createTagComponent('p');
       letter.dataset.value = word[i].toUpperCase();
       content.appendChild(letter);
     }
