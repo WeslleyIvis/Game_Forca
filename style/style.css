@@ -82,6 +82,14 @@ main {
     background-color: rgb(54, 107, 177);
 }
 
+.buttons .on-word  {
+    background-color: rgb(77, 194, 77);
+}
+
+.buttons .off-word {
+    background-color: rgb(235, 63, 63);
+}
+
 .buttons button .green {
     background: rgb(87, 206, 57);
     
