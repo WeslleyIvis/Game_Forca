@@ -13,15 +13,21 @@ export default class Forca extends Components {
     this.clue = clue;
     this.mainComponent = this.createTagComponent('main', 'main');
     this.gameComponent = null;
-    this.imagens = [
-      '../../style/imagens/sr1.jpg',
-      '../../style/imagens/sr2.jpg',
-      '../../style/imagens/sr2.jpg',
-      '../../style/imagens/sr3.png',
-      '../../style/imagens/sr4.png',
-      '../../style/imagens/sr5.jpg',
-      '../../style/imagens/sr6.jpg',
-    ];
+    (this.buttons = this.createArrayComponent(
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
+      'section',
+      'buttons',
+      'button',
+    )),
+      (this.imagens = [
+        '../../style/imagens/sr1.jpg',
+        '../../style/imagens/sr2.jpg',
+        '../../style/imagens/sr2.jpg',
+        '../../style/imagens/sr3.png',
+        '../../style/imagens/sr4.png',
+        '../../style/imagens/sr5.jpg',
+        '../../style/imagens/sr6.jpg',
+      ]);
     this.contentImage = this.createFigureComponent(
       this.imagens[0],
       'srIncrivel',
@@ -56,7 +62,8 @@ export default class Forca extends Components {
   randomWord(category) {
     this.data.forEach((word) => {
       if (word.clue.toUpperCase() === category.toUpperCase()) {
-        this.word = word.word[Math.floor(Math.random() * word.word.length)];
+        this.word =
+          word.word[Math.floor(Math.random() * word.word.length)].toUpperCase();
         this.maxClue = Math.floor(this.word.length / this.amountClue);
       }
     });
@@ -85,16 +92,7 @@ export default class Forca extends Components {
       )),
     );
 
-    this.selectLetterEvent(
-      this.mainComponent.appendChild(
-        this.createArrayComponent(
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
-          'section',
-          'buttons',
-          'button',
-        ),
-      ),
-    );
+    this.selectLetterEvent(this.mainComponent.appendChild(this.buttons));
 
     this.clueEvent(
       this.mainComponent.appendChild(this.createButton('Dica', 'button-clue')),
@@ -155,6 +153,16 @@ export default class Forca extends Components {
     ) {
       this.countLetters.push(letter);
       this.bodyLife(letter);
+
+      this.buttons.childNodes.forEach((element) => {
+        if (this.word.includes(letter) && element.innerText == letter) {
+          element.disabled = true;
+          element.classList.add('on-word');
+        } else if (element.innerText == letter) {
+          element.disabled = true;
+          element.classList.add('off-word');
+        }
+      });
     }
   }
 
