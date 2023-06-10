@@ -9,4 +9,5 @@ Os jogadores têm um número limitado de tentativas para adivinhar a palavra ant
 
 ## <a href="https://weslleyivis.github.io/GameForca/">Clique aqui</a> para começar a jogar
 
-![image](https://github.com/WeslleyIvis/GameForca/assets/79803635/50afa4ee-01e3-4a4d-a755-1baa32e79e74)
+![image](https://github.com/WeslleyIvis/GameForca/assets/79803635/b810f896-f9f8-48ba-b634-cc082da33370)
+
