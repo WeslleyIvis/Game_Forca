@@ -90,9 +90,8 @@ main {
     background-color: rgb(235, 63, 63);
 }
 
-.buttons button .green {
-    background: rgb(87, 206, 57);
-    
+.button .off {
+    background-color: darkcyan !important;
 }
 
 .used-letters {

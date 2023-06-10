@@ -199,6 +199,10 @@ export default class Forca extends Components {
           element.disabled = true;
         }
       });
+      this.buttons.childNodes.forEach((element) => {
+        element.disabled = true;
+        element.classList.add('off');
+      });
     };
 
     if (!this.usedLettersWord.includes(letter) && this.body < 6) {
