@@ -13,21 +13,21 @@ export default class Forca extends Components {
     this.clue = clue;
     this.mainComponent = this.createTagComponent('main', 'main');
     this.gameComponent = null;
-    (this.buttons = this.createArrayComponent(
+    this.buttons = this.createArrayComponent(
       'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
       'section',
       'buttons',
       'button',
-    )),
-      (this.imagens = [
-        '../../style/imagens/sr1.jpg',
-        '../../style/imagens/sr2.jpg',
-        '../../style/imagens/sr2.jpg',
-        '../../style/imagens/sr3.png',
-        '../../style/imagens/sr4.png',
-        '../../style/imagens/sr5.jpg',
-        '../../style/imagens/sr6.jpg',
-      ]);
+    );
+    this.imagens = [
+      'https://pbs.twimg.com/media/FKSuneVXsAMip3H.jpg',
+      'https://pbs.twimg.com/media/FNhKDVWWYAM3RRY.jpg',
+      'https://rvideos2.memedroid.com/videos/UPLOADED641/63b20d4a84dc0.webp',
+      'https://rvideos2.memedroid.com/videos/UPLOADED641/63b20d4a84dc0.webp',
+      'https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/fa634c9bcc68224650424d6b130119d09e984745fde8a4069d00c4d38585195c_1.jpg',
+      'https://yt3.googleusercontent.com/SHJxMpwQV2c0JY7ICeV_ze63v2NLx1GCKqG_dQOMLh2DIkFLXTrJrQ4OieVovt9ae6VzcKP4=s900-c-k-c0x00ffffff-no-rj',
+      'https://i.pinimg.com/originals/e4/dc/a8/e4dca847978d7224b53855a33de7a226.jpg',
+    ];
     this.contentImage = this.createFigureComponent(
       this.imagens[0],
       'srIncrivel',
