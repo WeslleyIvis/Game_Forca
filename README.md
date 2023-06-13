@@ -5,7 +5,7 @@ A dinâmica do jogo é simples: o jogador escolhe uma palavra e a escreve, subst
 Os jogadores têm um número limitado de tentativas para adivinhar a palavra antes que o desenho da forca seja concluído. Se os jogadores conseguirem adivinhar a palavra antes de a forca ser completada, eles vencem o jogo. Caso contrário, o jogador que escreveu a palavra ganha.
 
 
-## <a href="https://weslleyivis.github.io/GameForca/">Clique aqui</a> para começar a jogar
+## <a href="https://weslleyivis.github.io/Game_Forca/">Clique aqui</a> para começar a jogar
 
 ![image](https://github.com/WeslleyIvis/GameForca/assets/79803635/b810f896-f9f8-48ba-b634-cc082da33370)
 
