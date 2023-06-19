@@ -6,6 +6,8 @@ document.body.appendChild(button);
 
 let game = new Forca();
 
+console.log('teste');
+
 button.addEventListener('click', () => {
   game = new Forca();
   game.init();
