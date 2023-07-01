@@ -1,16 +1,10 @@
-import Forca from './modules/Forca.js';
+import Menu from './modules/Menu.js';
 
-const button = document.createElement('button');
-button.value = 'asdasd';
-document.body.appendChild(button);
+const menu = new Menu();
 
-let game = new Forca();
+//menu.forca.createForca();
 
-button.addEventListener('click', () => {
-  game = new Forca();
-  game.init();
-});
+menu.handlerMenu();
+document.querySelector('main').appendChild(menu.container);
 
-game.init();
-
-console.log(game);
+console.log(menu);
