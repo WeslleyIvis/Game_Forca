@@ -1,6 +1,6 @@
 [
   {
-    "clue": "Animal",
+    "name": "Animal",
     "word": [
       "Cavalo",
       "Boi",
@@ -9,11 +9,12 @@
       "Leao",
       "Onça",
       "Jumento",
-      "Papagaio"
+      "Papagaio",
+      "Girafa"
     ]
   },
   {
-    "clue": "Fruta",
+    "name": "Fruta",
     "word": [
       "Banana",
       "Maça",
@@ -27,7 +28,7 @@
     ]
   },
   {
-    "clue": "Esporte",
+    "name": "Esporte",
     "word": [
       "Tenis",
       "Volei",
@@ -37,6 +38,19 @@
       "Golfe",
       "Handebol",
       "Corrida"
+    ]
+  },
+  {
+    "name": "País",
+    "word": [
+      "Brasil",
+      "Estados Unidos",
+      "Egito",
+      "Japão",
+      "Coreia do Sul",
+      "Africa",
+      "Guiana Francesa",
+      "Russia"
     ]
   }
 ]
