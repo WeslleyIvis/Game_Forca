@@ -38,17 +38,24 @@ h2 {
     margin-top: 5%;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: 3em;
     position: relative;
 }
 
-.box-word p {
-    width: 100%;
-    max-width: 40px;
+.div-word {
+    display: flex;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.div-word span {
+    text-align: center;
+    width: 50px;
     height: 1.2em;
-    font-size: 3em;
-    border-bottom: 1px solid black;
+    font-size: clamp(2em, 50%, 3em);
+    border-bottom: 2px solid black;
 }
 
 .button-clue {

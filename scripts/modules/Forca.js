@@ -37,12 +37,14 @@ export default class Forca extends Components {
   }
 
   randomWord(category) {
-    this.data.forEach((word) => {
-      if (word.name.toUpperCase() === category.toUpperCase()) {
+    this.data.forEach((dataName) => {
+      if (dataName.name.toUpperCase() === category.toUpperCase()) {
         this.word =
-          word.word[Math.floor(Math.random() * word.word.length)].toUpperCase();
+          dataName.word[
+            Math.floor(Math.random() * dataName.word.length)
+          ].toUpperCase();
+
         this.maxClue = Math.floor(this.word.length / this.amountClue);
-      } else {
       }
     });
   }
@@ -61,8 +63,6 @@ export default class Forca extends Components {
     // Get image do personagem selecioanda no menu
     //this.character = await this.getHeroImage(this.character);
 
-    this.createArrayWord('Coreia do Sul', 'div', 'aa');
-
     // Cria a imagem do personagem selecionado
     console.log(this.character);
     this.contentImage = this.createFigureComponent(
@@ -73,13 +73,10 @@ export default class Forca extends Components {
 
     this.mainComponent.appendChild(this.contentImage);
 
+    // Cria a palavra
+
     this.mainComponent.appendChild(
-      (this.gameComponent = this.createArrayComponent(
-        this.word,
-        'section',
-        'box-word',
-        'p',
-      )),
+      (this.gameComponent = this.createArrayWord(this.word, 'div', 'box-word')),
     );
 
     this.selectLetterEvent(this.mainComponent.appendChild(this.buttons));
@@ -127,13 +124,17 @@ export default class Forca extends Components {
 
   validLetter(letter) {
     letter = letter.toUpperCase();
+    if (this.word.includes(' ')) {
+      this.word = this.word.replace(/\s/g, '');
+    }
+
     this.usedLettersWord = '';
-
     this.gameComponent.childNodes.forEach((element) => {
-      if (element.dataset.value == letter) element.innerText = letter;
+      element.childNodes.forEach((node) => {
+        if (node.dataset.value.toUpperCase() == letter) node.innerText = letter;
 
-      if (element.innerText != '')
-        this.usedLettersWord += element.dataset.value;
+        if (node.innerText != '') this.usedLettersWord += node.dataset.value;
+      });
     });
 
     if (
