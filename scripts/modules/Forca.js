@@ -1,8 +1,8 @@
 import Components from './Components.js';
-
 export default class Forca extends Components {
-  constructor(word = '', clue = '', amountClue = 3) {
+  constructor(word = '', clue = '', data, dataCharacter, amountClue = 3) {
     super();
+    this.data = data;
     this.word = word;
     this.usedLettersWord = '';
     this.letter = '';
@@ -11,7 +11,10 @@ export default class Forca extends Components {
     this.maxClue = 0;
     this.countLetters = [];
     this.clue = clue;
-    this.mainComponent = this.createTagComponent('main', 'main');
+    this.character = dataCharacter;
+    this.contentImage = null;
+    this.mainComponent = this.createNode('section', 'container-forca');
+    this.usedLetter = this.createNode('p', 'used-letters');
     this.gameComponent = null;
     this.buttons = this.createArrayComponent(
       'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
@@ -19,36 +22,10 @@ export default class Forca extends Components {
       'buttons',
       'button',
     );
-    this.imagens = [
-      'https://pbs.twimg.com/media/FKSuneVXsAMip3H.jpg',
-      'https://pbs.twimg.com/media/FNhKDVWWYAM3RRY.jpg',
-      'https://rvideos2.memedroid.com/videos/UPLOADED641/63b20d4a84dc0.webp',
-      'https://rvideos2.memedroid.com/videos/UPLOADED641/63b20d4a84dc0.webp',
-      'https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/fa634c9bcc68224650424d6b130119d09e984745fde8a4069d00c4d38585195c_1.jpg',
-      'https://yt3.googleusercontent.com/SHJxMpwQV2c0JY7ICeV_ze63v2NLx1GCKqG_dQOMLh2DIkFLXTrJrQ4OieVovt9ae6VzcKP4=s900-c-k-c0x00ffffff-no-rj',
-      'https://i.pinimg.com/originals/e4/dc/a8/e4dca847978d7224b53855a33de7a226.jpg',
-    ];
-    this.contentImage = this.createFigureComponent(
-      this.imagens[0],
-      'srIncrivel',
-      'content-img',
-    );
-    this.usedLetter = this.createTagComponent('p', 'used-letters');
-    this.data = './scripts/modules/data.json';
-  }
-
-  async getDataWorlds(data) {
-    await fetch(data)
-      .then((r) => r.json())
-      .then((r) => {
-        this.data = r;
-        this.handleEvents();
-      })
-      .catch((error) => console.error(error));
   }
 
   createWord(word, clue) {
-    if (word == '' && clue == '') {
+    if ((word == '' && clue == '') || clue == 'Random') {
       this.clue = clue =
         this.data[Math.floor(Math.random() * this.data.length)].clue;
       this.randomWord(clue);
@@ -65,6 +42,7 @@ export default class Forca extends Components {
         this.word =
           word.word[Math.floor(Math.random() * word.word.length)].toUpperCase();
         this.maxClue = Math.floor(this.word.length / this.amountClue);
+      } else {
       }
     });
   }
@@ -76,9 +54,18 @@ export default class Forca extends Components {
     this.createInterface();
   }
 
-  createInterface() {
-    this.mainComponent.appendChild(
-      this.createTagComponent('h2', 'clue', this.clue),
+  async createInterface() {
+    // Create Title h2, categoria da palavra
+    this.mainComponent.appendChild(this.createNode('h2', 'clue', this.clue));
+
+    // Get image do personagem selecioanda no menu
+    //this.character = await this.getHeroImage(this.character);
+
+    // Cria a imagem do personagem selecionado
+    this.contentImage = this.createFigureComponent(
+      this.character.images[this.body],
+      'srIncrivel',
+      'content-img',
     );
 
     this.mainComponent.appendChild(this.contentImage);
@@ -207,7 +194,7 @@ export default class Forca extends Components {
 
     if (!this.usedLettersWord.includes(letter) && this.body < 6) {
       this.body++;
-      this.contentImage.firstChild.src = this.imagens[this.body];
+      this.contentImage.firstChild.src = this.character.images[this.body];
     }
 
     if (this.body == 6) {
@@ -229,7 +216,7 @@ export default class Forca extends Components {
     });
   }
 
-  init() {
-    this.getDataWorlds(this.data);
+  createForca() {
+    console.log('criou');
   }
 }
