@@ -1,9 +1,16 @@
 export default class Components {
-  createTagComponent(tag, className = null, value = null, src = null) {
+  createNode(
+    tag,
+    className = null,
+    text = null,
+    attribute = { att: null, value: null },
+  ) {
     const content = document.createElement(tag);
-    if (className) content.classList.add(className);
-    if (src) content.setAttribute('src', src);
-    content.innerText = value;
+    className ? content.classList.add(className) : null;
+    text ? (content.innerText = text) : null;
+    attribute.att && attribute.value
+      ? content.setAttribute(attribute.att, attribute.value)
+      : null;
 
     return content;
   }
@@ -26,11 +33,11 @@ export default class Components {
     return button;
   }
 
-  createArrayComponent(word = 'word', tag = 'section', className, childTag) {
-    const content = this.createTagComponent(tag, className);
+  createArrayComponent(word = '', tag = '', className, childTag) {
+    const content = this.createNode(tag, className);
 
     for (let i = 0; i < word.length; i++) {
-      let letter = this.createTagComponent(childTag);
+      let letter = this.createNode(childTag);
       if (childTag.toUpperCase() === 'BUTTON') {
         letter.innerText = word[i];
       } else letter.dataset.value = word[i].toUpperCase();
