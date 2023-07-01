@@ -11,10 +11,16 @@ h2 {
     color: rgb(180, 180, 231);
 }
 
-main {
+.container-forca {
     padding: 1.5em;
     max-width: 850px;
     margin: 0 auto;
+    animation: 1s opacity-animation ease-out;
+}
+
+@keyframes opacity-animation {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
 
 .content-img {
