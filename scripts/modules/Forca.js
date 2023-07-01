@@ -27,7 +27,7 @@ export default class Forca extends Components {
   createWord(word, clue) {
     if ((word == '' && clue == '') || clue == 'Random') {
       this.clue = clue =
-        this.data[Math.floor(Math.random() * this.data.length)].clue;
+        this.data[Math.floor(Math.random() * this.data.length)].name;
       this.randomWord(clue);
     }
 
@@ -38,7 +38,7 @@ export default class Forca extends Components {
 
   randomWord(category) {
     this.data.forEach((word) => {
-      if (word.clue.toUpperCase() === category.toUpperCase()) {
+      if (word.name.toUpperCase() === category.toUpperCase()) {
         this.word =
           word.word[Math.floor(Math.random() * word.word.length)].toUpperCase();
         this.maxClue = Math.floor(this.word.length / this.amountClue);
@@ -61,7 +61,10 @@ export default class Forca extends Components {
     // Get image do personagem selecioanda no menu
     //this.character = await this.getHeroImage(this.character);
 
+    this.createArrayWord('Coreia do Sul', 'div', 'aa');
+
     // Cria a imagem do personagem selecionado
+    console.log(this.character);
     this.contentImage = this.createFigureComponent(
       this.character.images[this.body],
       'srIncrivel',
@@ -217,6 +220,6 @@ export default class Forca extends Components {
   }
 
   createForca() {
-    console.log('criou');
+    this.handleEvents();
   }
 }
