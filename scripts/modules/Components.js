@@ -91,21 +91,18 @@ export default class Components {
       }
     }
 
-    console.log(wordList);
     wordList.forEach((word) => {
-      const containerWord = this.createNode('div', 'word-box');
+      const containerWord = this.createNode('div', 'div-word');
       for (let i = 0; i < word.length; i++) {
-        const letra = this.createNode('span', null, null, {
-          att: 'value',
-          value: word.charAt(i),
-        });
+        const letra = this.createNode('span', null, null);
+        letra.dataset.value = word.charAt(i);
         containerWord.appendChild(letra);
       }
       container.appendChild(containerWord);
     });
 
     console.log(container);
-    return wordList;
+    return container;
   }
 
   createFigureComponent(src, alt = 'imagem', className) {
