@@ -1,9 +1,11 @@
 import Components from './Components.js';
 export default class Forca extends Components {
-  constructor(word = '', clue = '', data, dataCharacter, amountClue = 3) {
+  constructor(main, word = '', clue = '', data, character, amountClue = 3) {
     super();
+    this.main = document.querySelector(main);
+    this.mainComponent = this.createNode('section', 'container-forca');
     this.data = data;
-    this.word = word;
+    this.word = '';
     this.usedLettersWord = '';
     this.letter = '';
     this.body = 0;
@@ -11,10 +13,8 @@ export default class Forca extends Components {
     this.maxClue = 0;
     this.countLetters = [];
     this.clue = clue;
-    this.character = dataCharacter;
+    this.character = character;
     this.contentImage = null;
-    this.mainComponent = this.createNode('section', 'container-forca');
-    this.usedLetter = this.createNode('p', 'used-letters');
     this.gameComponent = null;
     this.buttons = this.createArrayComponent(
       'ABCDEFGHIJKLMNOPQRSTUVWXYZÇ',
@@ -85,12 +85,7 @@ export default class Forca extends Components {
       this.mainComponent.appendChild(this.createButton('Dica', 'button-clue')),
     );
 
-    this.mainComponent.appendChild(
-      this.createArrayComponent('123456', 'div', 'body-forca', 'span'),
-    );
-
-    this.mainComponent.appendChild(this.usedLetter);
-    document.body.appendChild(this.mainComponent);
+    this.main.appendChild(this.mainComponent);
   }
 
   selectLetterEvent(node) {
@@ -210,14 +205,6 @@ export default class Forca extends Components {
       window.alert('Venceu');
       disableInputs();
     }
-  }
-
-  writeUsedLetters() {
-    this.usedLetter.innerText = '';
-
-    this.countLetters.forEach((value) => {
-      this.usedLetter.innerText += value + ' - ';
-    });
   }
 
   createForca() {
