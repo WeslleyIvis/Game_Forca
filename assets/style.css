@@ -7,15 +7,29 @@
     box-sizing: border-box;
 }
 
+body {
+    background-image: url('https://cutewallpaper.org/21/meme-phone-wallpapers/Forced-Meme-Mobile-Phone-Wallpaper-ID-19286.jpg');
+    background-size: cover;
+
+}
+
+main {
+    margin: 0 auto;
+    height: 100vh;
+    max-width: 900px;
+}
+
 h2 {
+    color: white;
     text-align: center;
-    font-size: 2.5em;
-    color: rgb(180, 180, 231);
+    font-size: clamp(1.5em, 30vw, 2em);
 }
 
 .container-forca {
+    background-color: rgba(0, 0, 0, 0.911);
     padding: 1.5em;
     max-width: 850px;
+
     margin: 0 auto;
     animation: 1s opacity-animation ease-out;
 }
@@ -27,11 +41,14 @@ h2 {
 
 .content-img {
     margin: 1em auto;
-    max-width: 300px;
+  text-align: center;
+  
 }
 
 .content-img img {
-    max-width: 100%;
+
+    width: 300px;
+    height: 250px;
 }
 
 .box-word {
@@ -53,9 +70,11 @@ h2 {
 .div-word span {
     text-align: center;
     width: 50px;
-    height: 1.2em;
+    height: 1.4em;
     font-size: clamp(2em, 50%, 3em);
-    border-bottom: 2px solid black;
+    color: white;
+    
+    border-bottom: 2px solid rgb(255, 255, 255);
 }
 
 .button-clue {
@@ -67,6 +86,7 @@ h2 {
     margin-top: 1em;
     background-color: rgb(0, 44, 110);
     color: white;
+    margin-bottom: 1em;
 }
 
 .button-clue:disabled {
