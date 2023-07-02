@@ -41,9 +41,9 @@ export default class Menu {
   createMenu() {
     const selectCategory = this.select(
       this.options.dataWord,
-      'Selecione a Categoria',
+      'Categoria',
       {
-        className: 'select-category',
+        id: 'select-category',
         selectTitle: 'category',
         random: true,
       },
@@ -56,9 +56,9 @@ export default class Menu {
 
     const selectCharacter = this.select(
       this.options.dataCharacter,
-      'Selecione o Personagem',
+      'Personagem',
       {
-        className: 'select-character',
+        id: 'select-character',
         selectTitle: 'character',
         random: true,
       },
@@ -85,27 +85,46 @@ export default class Menu {
     this.container.appendChild(startButton);
   }
 
-  select(data, title, selectNode = { className, selectTitle, random }) {
+  select(data, title, selectNode = { id, selectTitle, random }) {
     let selectContent = this.forca.createNode('div', 'select-box');
-    selectContent.appendChild(this.forca.createNode('h2', null, title));
+    const label = document.createElement('label');
+    label.innerText = title;
+    label.setAttribute('for', selectNode.id);
+
+    let customSelect = this.forca.createNode('div', 'custom-select');
 
     let select = this.forca.createSelect(
       data,
-      selectNode.className,
+      selectNode.id,
       selectNode.selectTitle,
       selectNode.random,
     );
 
-    selectContent.appendChild(select);
+    selectContent.appendChild(label);
+    customSelect.appendChild(select);
+    selectContent.appendChild(customSelect);
 
+    console.log(selectContent);
     return selectContent;
   }
 
   startGame(button) {
-    button.addEventListener('click', () => {
-      this.container.innerHTML = '';
+    // const audio = new Audio('./scripts/tom_1.mp3');
+    // audio.play();
 
+    button.addEventListener('click', () => {
+      document.querySelector('main').removeChild(this.container);
+
+      // Select random character
+      if (this.options.character === '') {
+        this.options.character =
+          this.options.dataCharacter[
+            Math.floor(Math.random() * this.options.dataCharacter.length)
+          ];
+      }
+      // Create Forca game
       this.forca = new Forca(
+        'main',
         '',
         this.options.category,
         this.options.dataWord,
@@ -113,6 +132,7 @@ export default class Menu {
       );
 
       this.forca.createForca();
+      this.options.character = '';
     });
   }
 
