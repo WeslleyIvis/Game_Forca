@@ -1,0 +1,95 @@
+.menu {
+    background-color: rgba(0, 0, 0, 0.911);
+    position: absolute;
+    max-width: 700px;
+    height: 100vh;
+    width: 100%;
+    padding: 50px 0;
+}
+
+.select-box {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 1.5em;
+    flex-basis: 100%;
+}
+
+.select-box label{
+    text-align: start !important;
+    color: white;
+    font-size: clamp(1.3em, 50vw, 1.6em);
+}
+
+.custom-select {
+    display: grid;
+    grid-template-areas: "select";
+    width: 100%;
+    margin-top: 10px;
+    min-width: 15ch;
+    border: 1px solid rgb(78, 78, 78);
+    border: none;
+    border-bottom: 1px solid rgb(107, 107, 107);
+    padding: 0.25em 0.5em;
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: #fff;
+    background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+    transition: .5s ease-in-out;
+}
+
+.custom-select select {
+    grid-area: select;
+    appearance: none;
+    background-color: transparent;
+    color: rgb(75, 75, 75);
+    border: none;
+    padding: 10px;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+
+.custom-select select::-ms-expand {
+    display: none;
+}
+
+.custom-select:hover {
+    background-color: rgb(216, 216, 216);
+    border-radius: 50px;
+    border-left: 1px solid black;
+}
+
+.custom-select::after {
+    grid-area: select;
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: rgb(110, 89, 89);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    align-self: center;
+    justify-self: end;
+    transition: .5s ease-in-out;
+}
+
+.custom-select:hover::after {
+    transform: rotate(90deg);
+    height: 15px;
+}
+
+.button-start {
+    width: 80%;
+    border: none;
+    border-radius: 50px;
+    background-color: rgb(93, 184, 93);
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 5px;
+    outline: none;
+    margin: 0 10%;
+}
