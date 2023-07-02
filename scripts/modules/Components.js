@@ -16,10 +16,10 @@ export default class Components {
     return content;
   }
 
-  createSelect(data = [], className, title, random = false) {
-    const select = this.createNode('select', className, '', {
-      title: title,
-    });
+  createSelect(data = [], id, title, random = false) {
+    const select = document.createElement('select');
+    select.id = id;
+    select.title = title;
 
     random
       ? select.appendChild(
