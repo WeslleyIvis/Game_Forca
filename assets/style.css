@@ -1,5 +1,11 @@
 @import 'menu.css';
 
+:root {
+    --font-color: white;
+    --bg-color-black-trasp: rgba(0, 0, 0, 0.911);
+    --button-bg: rgb(121, 121, 236);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,9 +14,7 @@
 }
 
 body {
-    background-image: url('https://cutewallpaper.org/21/meme-phone-wallpapers/Forced-Meme-Mobile-Phone-Wallpaper-ID-19286.jpg');
     background-size: cover;
-
 }
 
 main {
@@ -19,17 +23,36 @@ main {
     max-width: 900px;
 }
 
+main::after {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    content: ' ';
+    height: 100%;
+    width: 100vw;
+    background-color: var(--bg-color-black-trasp);
+}
+
+@media (max-width: 700px) {
+    main {
+        background-image: url('https://cutewallpaper.org/21/meme-phone-wallpapers/Forced-Meme-Mobile-Phone-Wallpaper-ID-19286.jpg');
+    background-size: cover;
+    }
+}
+
 h2 {
-    color: white;
+    color: var(--font-color);
     text-align: center;
     font-size: clamp(1.5em, 30vw, 2em);
 }
 
 .container-forca {
-    background-color: rgba(0, 0, 0, 0.911);
-    padding: 1.5em;
+    background-color: var(--bg-color-black-trasp);
+    height: 100vh;
+    padding: 1.5em 1.5em 0 1.5em;
     max-width: 850px;
-
+    position: relative;
     margin: 0 auto;
     animation: 1s opacity-animation ease-out;
 }
@@ -46,8 +69,7 @@ h2 {
 }
 
 .content-img img {
-
-    width: 300px;
+    width: clamp(250px, 20vw, 300px);
     height: 250px;
 }
 
@@ -72,8 +94,7 @@ h2 {
     width: 50px;
     height: 1.4em;
     font-size: clamp(2em, 50%, 3em);
-    color: white;
-    
+    color: var(--font-color);
     border-bottom: 2px solid rgb(255, 255, 255);
 }
 
