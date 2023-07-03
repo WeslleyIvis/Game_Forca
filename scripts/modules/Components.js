@@ -52,10 +52,10 @@ export default class Components {
   }
 
   createButton(value, className = null) {
-    const button = document.createElement('input');
+    const button = document.createElement('button');
     button.type = 'button';
-    button.value = value;
-    button.classList.add(className);
+    button.innerText = value;
+    className ? button.classList.add(className) : null;
 
     return button;
   }
@@ -101,7 +101,6 @@ export default class Components {
       container.appendChild(containerWord);
     });
 
-    console.log(container);
     return container;
   }
 
