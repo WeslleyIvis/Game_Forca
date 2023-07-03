@@ -1,10 +1,11 @@
 import Components from './Components.js';
 export default class Forca extends Components {
-  constructor(main, word = '', clue = '', data, character, amountClue = 3) {
+  constructor(main = null, menu, amountClue = 3) {
     super();
     this.main = document.querySelector(main);
+    this.menu = menu;
     this.mainComponent = this.createNode('section', 'container-forca');
-    this.data = data;
+    this.data = menu.options.dataWord;
     this.word = '';
     this.usedLettersWord = '';
     this.letter = '';
@@ -12,8 +13,8 @@ export default class Forca extends Components {
     this.amountClue = amountClue;
     this.maxClue = 0;
     this.countLetters = [];
-    this.clue = clue;
-    this.character = character;
+    this.clue = menu.options.category;
+    this.character = menu.options.character;
     this.contentImage = null;
     this.gameComponent = null;
     this.buttons = this.createArrayComponent(
@@ -64,7 +65,7 @@ export default class Forca extends Components {
     //this.character = await this.getHeroImage(this.character);
 
     // Cria a imagem do personagem selecionado
-    console.log(this.character);
+
     this.contentImage = this.createFigureComponent(
       this.character.images[this.body],
       'srIncrivel',
@@ -197,17 +198,42 @@ export default class Forca extends Components {
     }
 
     if (this.body == 6) {
-      window.alert('Perdeu! a palavra certa é ' + this.word);
+      this.mainComponent.appendChild(
+        this.menu.modalFinishGame(this.menu, this.word),
+      );
+
       disableInputs();
     }
 
     if (this.usedLettersWord.length == this.word.length) {
-      window.alert('Venceu');
+      this.mainComponent.appendChild(
+        this.menu.modalFinishGame(this.menu, this.word),
+      );
       disableInputs();
     }
   }
 
-  createForca() {
+  finishGame(node, status) {
+    const modalFinish = this.createNode('div', 'modal-finish');
+    const statusGame = this.createNode('h2', '', 'ugauga');
+
+    const buttons = [
+      this.createButton('Continue', 'btn-menu'),
+      this.createButton('Menu', 'btn-menu'),
+    ];
+
+    buttons.forEach((element) => {
+      element.addEventListener('click', () => {
+        node = element.innerText;
+        return node;
+      });
+      this.main.appendChild(element);
+    });
+
+    modalFinish.appendChild(statusGame);
+  }
+
+  createForca(a) {
     this.handleEvents();
   }
 }
