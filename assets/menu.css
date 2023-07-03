@@ -1,10 +1,10 @@
 .menu {
     background-color: rgba(0, 0, 0, 0.911);
-    position: absolute;
     max-width: 700px;
     height: 100vh;
-    width: 100%;
-    padding: 50px 0;
+    padding: 50px 3em;
+    margin: 0 auto;
+    position: relative;
 }
 
 .select-box {
@@ -85,11 +85,60 @@
     width: 80%;
     border: none;
     border-radius: 50px;
-    background-color: rgb(93, 184, 93);
+    background-color: var(--button-bg);
     color: white;
     font-size: 1.5em;
     font-weight: bold;
     padding: 5px;
     outline: none;
+    cursor: pointer;
     margin: 0 10%;
+    transition: .3s;
 }
+
+.modal-finish {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    top: 25vh;
+    max-width: 850px;
+    padding: 0 clamp(1em, 10vw, 8em);
+    width: 100%;
+    left: 0;
+    gap: 3em;
+    z-index: 3;
+    background-color: var(--bg-color-black-trasp);
+}
+
+.modal-finish button {
+    padding: 10px 0;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--button-bg);
+    color: white;
+    font-size: 2em;
+    cursor: pointer;
+    transition: .3s ease-in;
+}
+
+.modal-finish button:hover, .button-start:hover {
+    background-color: rgb(0, 55, 128);
+}
+
+.modal-finish::after {
+    content: '';
+    position: absolute;
+    top: -25vh;
+    z-index: -1;
+    height: 100vh;
+    width: 100%;
+    background-color: var(--bg-color-black-trasp);
+}
+
+@media (max-width: 660px) {
+    .menu {
+        padding: 10px;
+    }
+}   
