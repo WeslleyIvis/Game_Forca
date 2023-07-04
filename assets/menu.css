@@ -1,5 +1,4 @@
 .menu {
-    background-color: rgba(0, 0, 0, 0.911);
     max-width: 700px;
     height: 100vh;
     padding: 50px 3em;
@@ -108,7 +107,11 @@
     left: 0;
     gap: 3em;
     z-index: 3;
-    background-color: var(--bg-color-black-trasp);
+    background-color: transparent;
+}
+
+.modal-finish h2 {
+    color: white !important;
 }
 
 .modal-finish button {

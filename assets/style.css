@@ -1,7 +1,7 @@
 @import 'menu.css';
 
 :root {
-    --font-color: white;
+    --font-color: rgb(51, 51, 51);
     --bg-color-black-trasp: rgba(0, 0, 0, 0.911);
     --button-bg: rgb(121, 121, 236);
 }
@@ -31,13 +31,17 @@ main::after {
     content: ' ';
     height: 100%;
     width: 100vw;
-    background-color: var(--bg-color-black-trasp);
+
 }
 
 @media (max-width: 700px) {
-    main {
+    /* main {
         background-image: url('https://cutewallpaper.org/21/meme-phone-wallpapers/Forced-Meme-Mobile-Phone-Wallpaper-ID-19286.jpg');
-    background-size: cover;
+        background-size: cover;
+    } */
+
+    .container-forca {
+        height: auto !important;
     }
 }
 
@@ -48,14 +52,14 @@ h2 {
 }
 
 .container-forca {
-    background-color: var(--bg-color-black-trasp);
-    height: 100vh;
     padding: 1.5em 1.5em 0 1.5em;
     max-width: 850px;
     position: relative;
     margin: 0 auto;
     animation: 1s opacity-animation ease-out;
+    z-index: 1;
 }
+
 
 @keyframes opacity-animation {
     from {opacity: 0;}
@@ -95,7 +99,7 @@ h2 {
     height: 1.4em;
     font-size: clamp(2em, 50%, 3em);
     color: var(--font-color);
-    border-bottom: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(0, 0, 0);
 }
 
 .button-clue {
