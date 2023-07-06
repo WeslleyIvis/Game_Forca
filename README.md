@@ -7,5 +7,5 @@ Os jogadores têm um número limitado de tentativas para adivinhar a palavra ant
 
 ## <a href="https://weslleyivis.github.io/Game_Forca/">Clique aqui</a> para começar a jogar
 
-![image](https://github.com/WeslleyIvis/GameForca/assets/79803635/b810f896-f9f8-48ba-b634-cc082da33370)
+
 
